@@ -10,7 +10,7 @@ Featured posts plugin & widget for WordPress or WordPress MU.
 == Description ==
 Adds a featured post management page for site admins who can input a sitewide feed address, then select posts via a checkbox. Also includes a widget to disply posts on the main (or any) blog.
 
-We recommend using the Sitewide tags plugin in WPMU, then placing the feed address from the tags blog in the admin menu. Otherwise, any blog feed can be used.
+We recommend using the [Sitewide tags plugin](http://wordpress.org/extend/plugins/wordpress-mu-sitewide-tags/) in WPMU, then placing the feed address from the tags blog in the admin menu. Otherwise, any blog feed can be used.
 
 A widget is included. You can also code the output in your theme with `<?php ra_featured_show($how_many, $read_more, $show_avatar); ?>` where
 
