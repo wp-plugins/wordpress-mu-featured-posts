@@ -3,7 +3,7 @@ Contributors: wpmuguru, andrea_r
 Tags: wpmu, widget, featured post, sitewide, feeds
 Requires at least: 2.6
 Tested up to: 2.8.4
-Stable tag: 2.8
+Stable tag: 2.8.1
 
 Featured posts plugin & widget for WordPress or WordPress MU. 
 
@@ -31,6 +31,9 @@ folder: ra-featured-posts
 	ra-featured-posts-install.php
 
 == Changelog ==
+
+= 2.8.1 =
+* Fixed misplaced permission check.
 
 = 2.8 =
 * Original version.

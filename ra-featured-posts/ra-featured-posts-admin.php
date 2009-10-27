@@ -20,12 +20,11 @@ require_once (ABSPATH . WPINC . '/rss.php');
 function ra_add_featured_posts_page() {
 	global $wpdb, $ra_featured_admin_show, $ra_featured_admin_keep, $ra_featured_admin_feed;
 	global $wpmu_version, $ra_parent;
-
-	if((isset($wpmu_version) && !is_site_admin()) || !current_user_can('edit_posts')) {
-		wp_die("You don't have permissions to access this page");
-	}
 		
 	if ( $_GET['page'] == basename(__FILE__) ) {
+		if((isset($wpmu_version) && !is_site_admin()) || !current_user_can('edit_posts')) {
+			wp_die("You don't have permissions to access this page");
+		}
 		if ( 'save' == $_REQUEST['action'] ) {
 			$ra_featured_admin_show = $_REQUEST['ra_show'];
 			$ra_featured_admin_keep = $_REQUEST['ra_keep'];
