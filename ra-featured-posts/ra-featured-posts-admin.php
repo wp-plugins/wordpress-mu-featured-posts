@@ -22,9 +22,13 @@ function ra_add_featured_posts_page() {
 	global $wpmu_version, $ra_parent;
 		
 	if ( $_GET['page'] == basename(__FILE__) ) {
-		if((isset($wpmu_version) && !is_site_admin()) || !current_user_can('edit_posts')) {
+		if( !empty( $wpmu_version ) && !is_site_admin() )
 			wp_die("You don't have permissions to access this page");
-		}
+		elseif( function_exists( 'is_multisite' ) && is_multisite() && !is_super_admin() )
+			wp_die("You don't have permissions to access this page");
+		elseif( !current_user_can( 'edit_posts' ) )
+			wp_die("You don't have permissions to access this page");
+
 		if ( 'save' == $_REQUEST['action'] ) {
 			$ra_featured_admin_show = $_REQUEST['ra_show'];
 			$ra_featured_admin_keep = $_REQUEST['ra_keep'];
@@ -84,7 +88,7 @@ function ra_add_featured_posts_page() {
 					$wpdb->query($sqlcmd);
 				}
 			}
-			header("Location: wpmu-admin.php?page=ra-featured-posts-admin.php".$querystring);
+			header("Location: $ra_parent?page=ra-featured-posts-admin.php".$querystring);
 			die;
 		} else if ( 'remove' == $_REQUEST['action'] ) {
 			$ra_remove = $_REQUEST['ra_feature_check'];
@@ -163,6 +167,7 @@ function ra_featured_posts_page() {
 					onClick="ra_feature(<?php echo $index; ?>)" />
 <?php	}
 			$index++;
+			echo '</div>';
 		}
 	} ?>
 <input type="hidden" id="ra_URI" name="ra_URI" value="" />

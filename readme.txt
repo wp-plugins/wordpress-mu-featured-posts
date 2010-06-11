@@ -2,8 +2,8 @@
 Contributors: wpmuguru, andrea_r
 Tags: wpmu, widget, featured post, sitewide, feeds
 Requires at least: 2.6
-Tested up to: 2.8.4
-Stable tag: 2.8.1
+Tested up to: 3.0
+Stable tag: 2.8.2
 
 Featured posts plugin & widget for WordPress or WordPress MU. 
 
@@ -18,6 +18,10 @@ A widget is included. You can also code the output in your theme with `<?php ra_
 `$read_more` = add read more link - default show link
 `$show_avatar` = show author avatar - default show avatar
 
+Also includes a shortcode with parameters where values & defaults match what is above
+
+`[ra-featured howmany=1 readmore=1 showavatar=1]`
+
 For questions & updates, please see this post:
 [WPMU Tutorials](http://wpmututorials.com/plugins/featured-posts-plugin-and-widget/)
 
@@ -31,6 +35,10 @@ folder: ra-featured-posts
 	ra-featured-posts-install.php
 
 == Changelog ==
+
+= 2.8.2 =
+* Update for WordPress 3.0
+* Add shortcode
 
 = 2.8.1 =
 * Fixed misplaced permission check.
