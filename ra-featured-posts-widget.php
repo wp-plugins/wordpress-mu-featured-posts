@@ -18,9 +18,7 @@ $title ='Featured Posts';
 
 // These lines generate our output.
 echo $before_widget . $before_title . $title . $after_title;
-?>
-<?php ra_featured_show(); ?>
-<?php
+ra_featured_show(); 
 echo $after_widget;
 }
 

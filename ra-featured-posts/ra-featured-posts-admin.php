@@ -22,9 +22,13 @@ function ra_add_featured_posts_page() {
 	global $wpmu_version, $ra_parent;
 		
 	if ( $_GET['page'] == basename(__FILE__) ) {
-		if((isset($wpmu_version) && !is_site_admin()) || !current_user_can('edit_posts')) {
+		if( !empty( $wpmu_version ) && !is_site_admin() )
 			wp_die("You don't have permissions to access this page");
-		}
+		elseif( function_exists( 'is_multisite' ) && is_multisite() && !is_super_admin() )
+			wp_die("You don't have permissions to access this page");
+		elseif( !current_user_can( 'edit_posts' ) )
+			wp_die("You don't have permissions to access this page");
+
 		if ( 'save' == $_REQUEST['action'] ) {
 			$ra_featured_admin_show = $_REQUEST['ra_show'];
 			$ra_featured_admin_keep = $_REQUEST['ra_keep'];
@@ -70,27 +74,27 @@ function ra_add_featured_posts_page() {
 				$rowcount = $wpdb->query($sqlcmd);
 
 				// put post at top of featured post list
-				$sqlcmd = "INSERT INTO $wpdb->featuredposts (blog_id, feature_order, feature_timestamp, feature_username, ".
-					"feature_posttitle, feature_URI, feature_excerpt) VALUES ($blogid, 1, NOW(), '". $ra_author . "', '" .
-					$ra_title . "', '" . $ra_link . "', '" . $ra_excerpt . "')";
+				$sqlcmd = $wpdb->prepare("INSERT INTO $wpdb->featuredposts (blog_id, feature_order, feature_timestamp, feature_username, ".
+					"feature_posttitle, feature_URI, feature_excerpt) VALUES (%d, 1, NOW(), %s, %s, %s, %s)",
+					$blogid, $ra_author, $ra_title, $ra_link, $ra_excerpt );
 				$wpdb->query($sqlcmd);
 
 				// check for records above keep limit
-				$sqlcmd = "SELECT MAX(feature_order) FROM (" .
-					"SELECT feature_order FROM $wpdb->featuredposts ORDER BY feature_order ASC LIMIT 0, $ra_featured_admin_keep) x";
+				$sqlcmd = $wpdb->prepare( "SELECT MAX(feature_order) FROM (" .
+					"SELECT feature_order FROM $wpdb->featuredposts ORDER BY feature_order ASC LIMIT 0, %d) x", $ra_featured_admin_keep );
 				$index = $wpdb->get_var($sqlcmd);
 				if($index >= $ra_featured_admin_keep) {
 					$sqlcmd = "DELETE FROM $wpdb->featuredposts WHERE feature_order > $index";
 					$wpdb->query($sqlcmd);
 				}
 			}
-			header("Location: wpmu-admin.php?page=ra-featured-posts-admin.php".$querystring);
+			header("Location: $ra_parent?page=ra-featured-posts-admin.php".$querystring);
 			die;
 		} else if ( 'remove' == $_REQUEST['action'] ) {
 			$ra_remove = $_REQUEST['ra_feature_check'];
 			if($ra_remove) {
 				// remove records 
-				$sqlcmd = "DELETE FROM $wpdb->featuredposts WHERE feature_id IN (" . join(',',$ra_remove).")";
+				$sqlcmd = $wpdb->escape( "DELETE FROM $wpdb->featuredposts WHERE feature_id IN (" . join(',',$ra_remove).")" );
 				$rowcount = $wpdb->query($sqlcmd);
 				$querystring = '&removed=true';
 			}
@@ -133,7 +137,7 @@ function ra_featured_posts_page() {
 			<?php ra_featured_show($ra_featured_admin_keep, 0, 0, 1); ?>
 			<input type="submit" name="submitremove" value="&nbsp;&nbsp;<?php _e('Remove Selected'); ?>&nbsp;&nbsp;" />
 			<input type="hidden" name="action" value="remove" />
-	</form>
+		</form>
 	</div>
 	<div class="ra-admin-left">
 <?php
@@ -163,6 +167,7 @@ function ra_featured_posts_page() {
 					onClick="ra_feature(<?php echo $index; ?>)" />
 <?php	}
 			$index++;
+			echo '</div>';
 		}
 	} ?>
 <input type="hidden" id="ra_URI" name="ra_URI" value="" />
