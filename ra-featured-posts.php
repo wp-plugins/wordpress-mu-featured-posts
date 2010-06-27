@@ -68,6 +68,7 @@ function ra_featured_show($how_many = 1, $read_more = 1, $show_avatar = 1, $show
 			$result .= '</div>';
 			if($show_avatar)
 				$result .= '</div>';
+			$result .= '</div>';
 		}
 		$result .= '</div>';
 	}
