@@ -3,7 +3,7 @@ Contributors: wpmuguru, andrea_r
 Tags: wpmu, widget, featured post, sitewide, feeds
 Requires at least: 2.6
 Tested up to: 3.0
-Stable tag: 2.8.2
+Stable tag: trunk
 
 Featured posts plugin & widget for WordPress or WordPress MU. 
 
