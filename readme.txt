@@ -36,6 +36,9 @@ folder: ra-featured-posts
 
 == Changelog ==
 
+= 2.8.3 =
+* Add widget control box
+
 = 2.8.2 =
 * Update for WordPress 3.0
 * Add shortcode
