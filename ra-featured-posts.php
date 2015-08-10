@@ -3,7 +3,7 @@
 Plugin Name: WordPress Featured Posts
 Plugin URI: http://wpmututorials.com/plugins/featured-posts-plugin-and-widget/
 Description: Adds a featured post management page for site admins who can input a sitewide feed address, then select posts via a checkbox. Also includes a widget to disply posts on the main (or any) blog.
-Version: 2.8.3
+Version: 2.8.3.1
 Author: Ron Rennick, Andrea Rennick
 Author URI: http://ronandandrea.com
 

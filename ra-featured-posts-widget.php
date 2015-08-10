@@ -3,12 +3,12 @@
 Plugin Name: Featured Posts Widget
 Description: Adds a sidebar widget to display Featured Posts
 Author: Andrea_R
-Version: 1.1
+Version: 1.1.1
 Author URI: http://wpmututorials.com
 */
 
 class RA_Featured_Posts_Widget extends WP_Widget {
-	function RA_Featured_Posts_Widget() {
+	function __construct() {
 		$widget_ops = array( 'description' => __( 'Featured Posts Widget' ) );
 		$this->WP_Widget( 'ra_featured_posts_widget', __('Featured Posts Widget'), $widget_ops );
 	}
